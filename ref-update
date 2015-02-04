@@ -1,0 +1,47 @@
+#!/usr/bin/env python
+"""
+$ ref-update --project <project name> --refname <refname> --uploader <uploader> --oldrev <sha1> --newrev <sha1>
+
+Copy this script to your Gerrit $site_dir/hooks (`site_dir` is the directory containing /etc, /plugins, /db, /data...)
+and mark this file as executable.
+
+See: https://gerrit-review.googlesource.com/Documentation/config-hooks.html#_ref_update
+
+You may want to change `hooks.syncHookTimeout` in your config to a larger value than 30 seconds.
+
+Example of common environment variables:
+  - 'GERRIT_SITE': '/opt/gerrit',
+  - 'GERRIT_TMP': '/opt/gerrit/tmp',
+  - 'GIT_DIR': '/home/git/project-dir',
+"""
+
+__author__ = "Werner Beroux <werner@beroux.com>"
+
+import argparse
+import os
+import sys
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='Run ./build when present.')
+    parser.add_argument('--project', metavar='PROJECT_NAME', required=True);
+    parser.add_argument('--refname', required=True);
+    parser.add_argument('--uploader', required=True);
+    parser.add_argument('--oldrev', metavar='SHA1', required=True);
+    parser.add_argument('--newrev', metavar='SHA1', required=True);
+    args = parser.parse_args()
+
+    gerrit_site = os.environ['GERRIT_SITE']
+    gerrit_tmp = os.environ['GERRIT_TMP']
+    git_dir = os.environ['GIT_DIR']
+
+    # Debug output:
+    print('--project=' + args.project)
+    print('--refname=' + args.refname)
+    print('--uploader=' + args.uploader)
+    print('--oldrev=' + args.oldrev)
+    print('--newrev=' + args.newrev)
+    print('GERRIT_SITE=' + gerrit_site)
+    print('GERRIT_TMP=' + gerrit_tmp)
+    print('GIT_DIR=' + git_dir)
+
+    sys.exit(0)
