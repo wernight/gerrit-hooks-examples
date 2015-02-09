@@ -7,7 +7,8 @@ and mark this file as executable.
 
 See: https://gerrit-review.googlesource.com/Documentation/config-hooks.html#_ref_update
 
-You may want to change `hooks.syncHookTimeout` in your config to a larger value than 30 seconds.
+You may want to change `hooks.syncHookTimeout` in your config to a larger value than 30 seconds,
+and `receive.timeout` too (default is `2 min`).
 
 Example of common environment variables:
   - 'GERRIT_SITE': '/opt/gerrit',
